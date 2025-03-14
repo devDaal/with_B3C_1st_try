@@ -1,0 +1,54 @@
+from tkinter import Button, Frame, Label, messagebox
+from tkinter.ttk import Combobox
+
+class Settingsview(Frame):
+    
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)
+        
+        self.place_exit_btn()
+        self.place_port_selection_widget()
+        self.place_title()
+        
+    def place_exit_btn(self):
+        self.exit_btn = Button(self, text="EXIT", 
+                               font=("Robot",12,"bold"), bg='red', fg='white')
+        self.exit_btn.grid(row=2, sticky='sw', padx=5) 
+        
+    def place_title(self):
+        title = Label(self, text='SETTINGS', font = ("Robot",12,"bold"))
+        title.grid(row=0,column=1,padx=10, pady=10)
+        
+    def place_port_selection_widget(self):
+        container = Frame(self)
+        container.grid(row=1)
+        
+        lbl = Label(container, text='PORT SELECTION',font=("Robot",12,"normal"))
+        lbl.grid(pady=5,padx=5)
+        
+        self.combo_port = Combobox(container, state='readonly')
+        self.combo_port.grid()       
+        
+        self.connect_btn = Button(container, text="CONNECT", width=11,
+                                  font=("Robot",12,"bold"),fg='white',bg='green')    
+        self.connect_btn.grid(row=1,column=1, padx=5)
+        
+    def show_succesfull_connection(self):
+        messagebox.showinfo('Succesfull connection',
+                            'The connection has been succesfull.')
+        
+    def show_succesfull_disconnection(self):
+        messagebox.showinfo('Succesfull disconnection',
+                            'The disconnection has been succesfull.')
+    
+    def show_connection_error(self):
+        messagebox.showerror('Connection Error',
+                             'There was a general connection error.')
+        
+    def show_decode_error(self):
+        messagebox.showerror('Connection Error',
+                             'There was a decoding error in the connection.')
+        
+    def show_unexpected_disconection_error(self):
+        messagebox.showerror('Connection Error',
+                             'There was an unexpected connection error.')
