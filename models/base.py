@@ -12,6 +12,7 @@ class ObservableModel:
         with cls._instance_lock:
             if cls._instance is None:
                 cls._instance = super(ObservableModel, cls).__new__(cls)
+                print("Creando una nueva instancia?")
         return cls._instance
 
     def __init__(self):

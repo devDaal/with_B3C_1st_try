@@ -7,7 +7,7 @@ class Homing_Routine(ObservableModel):
         """self.counter += 1
         print("Homing", self.counter)"""
 
-        print(self._initialized)
+        print(self._initialized,"homing")
         #variables
         
     def home_routine(self,axis):

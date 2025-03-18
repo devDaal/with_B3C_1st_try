@@ -9,6 +9,6 @@ class Model:
         self.serial_manager = SerialManager()
         self.homing_routine = Homing_Routine()
         
-        print(self.hello is self.serial_manager)
-        print(self.hello is self.homing_routine)
-        print(self.serial_manager is self.homing_routine)
+        print(self.hello is self.serial_manager, "1")
+        print(self.hello is self.homing_routine, "2")
+        print(self.serial_manager is self.homing_routine, "3")
