@@ -23,6 +23,8 @@ class Controller:
         self.model.serial_manager.add_event_listener("update_connection_status",self.update_connection_status)
         self.model.serial_manager.add_event_listener("unexpected_disconnection",self.unexpected_disconnection)
         
+        self.model.homing_routine.add_event_listener("axis_option",self.send_command_to_serial_manager)
+        
         
 
 
@@ -41,6 +43,11 @@ class Controller:
     def unexpected_disconnection(self, parent):
         """Inside the main Controller's scope"""
         self.settings_page_controller.unexpected_disconnection()
+        
+    def send_command_to_serial_manager(self, parent):
+        self.model.serial_manager.data_manager(self.model.homing_routine.axis_option)
+    
+        
 
     def start(self) -> None:
         self.view.start_mainloop()

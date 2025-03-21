@@ -8,15 +8,12 @@ class SerialManager(ObservableModel):
     
     def __init__(self):
         super().__init__()
-        """self.counter += 1
-        print("Serial", self.counter)"""
         self.serial_port = None
         self.is_connected = False
         self.port_name = None
         self.ports = None
         self.secure_disconnection = None
         self.is_decode_error = None
-        print(self._initialized,"serial m")
 
     def list_ports(self):
         self.ports = serial.tools.list_ports.comports()
@@ -89,15 +86,30 @@ class SerialManager(ObservableModel):
         self.trigger_event("unexpected_disconnection")
         
     def data_manager(self, data):
-        pass
-        """
-        if data == respuesta a un comando:
-            self.trigger_event("evento para ese comando")
-        elif data == respuesta a comando 2:
-            self.trigger_event("evento para ese otro comando")
-        ...
+        #La respuesta de la máquina es inmediata? Necesito poner time.sleep?
+        #Si pongo time.sleep, afecta a la aplicación?
+        #Si la respuesta es inmediata, se puede hacer algo como:
+        """serial.write("testsoft")
+        time.sleep(0.5)
+        if serial.readline().decode().strip() == "¿Qué pide para la contraseña?":
+           serial.write("bns")
+           time.sleep(0.5)
+           if serial.readline().decode().strip() == "Título 1":
+                serial.write("5")
+                time.sleep(0.5)
+                if serial.readline().decode().strip() == "Título 2":
+                     serial.write("1")
+                     time.sleep(0.5)
+                     if serial.readline().decode().strip() == "Título 3":
+                          serial.write(data)
+                          time.sleep(0.5)
+                          if serial.readline().decode().strip() == "Respuesta esperada":
+                            self.trigger_event("evento para ese comando")
         else:
             self.trigger_event("evento para manejar datos no válidos")
         """
-        
-    
+        print("Enviar testsoft")
+        print("Enviar bns")
+        print("Enviar 5")
+        print("Enviar 1")
+        print(data)
