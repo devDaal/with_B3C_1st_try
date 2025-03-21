@@ -7,15 +7,14 @@ class Homing_Routine(ObservableModel):
         """self.counter += 1
         print("Homing", self.counter)"""
 
+        print(self._initialized,"homing")
         #variables
         
-    def home_routine(self,axis):
-        print("Enviar testsoft")
-        print("Enviar bns")
-        print("Enviar 5")
-        print("Enviar 1")
-        listilla = ('x','y','z',)
-        if axis in listilla:
-            print(listilla.index(axis,0,3) + 1)
+    def send_index_to_serial_manager(self,axis):
+        self.axis_options = ('x','y','z',)
+        if axis in self.axis_options:
+            self.axis_option = self.axis_options.index(axis,0,3) + 1
         if axis == 'all':
-            print(9)
+            self.axis_option = 9
+        self.trigger_event("axis_option")
+            

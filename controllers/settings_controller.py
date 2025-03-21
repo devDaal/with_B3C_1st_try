@@ -25,7 +25,10 @@ class SettingsController:
             self.frame.combo_port.set("")
             
     def send_port_to_model(self):
-        self.model.serial_manager.toggle_connection(self.frame.combo_port.get())
+        if self.frame.selected_control.get() != '0':    
+            self.model.serial_manager.toggle_connection(self.frame.combo_port.get())
+        else:
+            self.frame.show_selection_needed()
         
     def update_view_connection_status(self):
         if self.model.serial_manager.is_connected:
