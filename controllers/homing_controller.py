@@ -14,13 +14,17 @@ class Homing_Controller:
         self.frame.start_btn.config(command = self.start_routine)      
         
     def start_routine(self):
-        if '0' not in self.frame.selected.get():
-            if self.frame.show_askyesnocancel():
-                self.model.homing_routine.send_index_to_serial_manager(self.frame.selected.get())
+        #Agregar que se lea si actualmente existe conexión serial para poder continuar con el proceso
+        if self.model.serial_manager.is_connected:   
+            if '0' not in self.frame.selected.get():
+                if self.frame.show_askyesnocancel():
+                    self.model.homing_routine.send_index_to_serial_manager(self.frame.selected.get())
+                else:
+                    print("Ño quiero")
             else:
-                print("Ño quiero")
+                self.frame.show_no_selection_message()
         else:
-            self.frame.show_no_selection_message()
+            self.frame.show_no_serial_connection()
         
         
     def home_page(self):

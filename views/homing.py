@@ -66,3 +66,7 @@ class Homingview(Frame):
         return messagebox.showinfo('No selection',
                                    'Please choose a routine to start.')
         
+    def show_no_serial_connection(self):
+        return messagebox.showinfo('No connection',
+                                   'There is no serial connection, please connect first.')
+        
