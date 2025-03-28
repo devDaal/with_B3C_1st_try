@@ -44,17 +44,21 @@ class Settingsview(Frame):
         self.selected_protocol = StringVar()
         self.selected_protocol.set("0") #This is just here for the radios to start unselected
         self.radio_DC = Radiobutton(container, text='DC Protocol', value='dc', variable=self.selected_protocol)
-        self.radio_LEFTZ = Radiobutton(container, text='Leitz Protocol', value='ltz', variable=self.selected_protocol)
+        self.radio_LEITZ = Radiobutton(container, text='Leitz Protocol', value='ltz', variable=self.selected_protocol)
         self.radio_SHEFFIELD = Radiobutton(container, text='Sheffield Protocol', value='sh', variable=self.selected_protocol)
         self.radio_REFLEX = Radiobutton(container, text='Reflex', value='rfx', variable=self.selected_protocol)
         self.radio_DC.grid(sticky='w',padx=(10,0))
-        self.radio_LEFTZ.grid(sticky='w',padx=(10,0))
+        self.radio_LEITZ.grid(sticky='w',padx=(10,0))
         self.radio_SHEFFIELD.grid(sticky='w',padx=(10,0))
         self.radio_REFLEX.grid(sticky='w',padx=(10,0))
         
     def show_selection_needed(self):
         messagebox.showwarning('Selection required',
                                "You haven't selected a control yet, please do so.")
+        
+    def show_disconnection_needed(self):
+        messagebox.showwarning('Protocol already selected',
+                               "You already selected a protocol, if you need to change it, please disconnect and connect again.")
         
     def show_succesfull_connection(self):
         messagebox.showinfo('Succesfull connection',

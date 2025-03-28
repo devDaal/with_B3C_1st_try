@@ -26,9 +26,9 @@ class SerialManager(ObservableModel):
                 self.data = self.serial_port.readline().decode().strip()
                 if self.data:
                     print(f"Datos recibidos: {self.data}")
-                    self.data_manager(self.data)#Aquí va trigger_event
+                    #Aquí va trigger_event ??
                     #aquí se pueden enviar los datos al controlador que le sean útiles
-                    #a través de trigger_event
+                    #a través de trigger_event ??
                 return self.data
             except serial.SerialException:
                 self.secure_disconnection = False
@@ -84,37 +84,6 @@ class SerialManager(ObservableModel):
     def handle_disconnection(self):
         """Handles unexpected disconnection."""
         self.trigger_event("unexpected_disconnection")
-        
-    def data_manager(self, data):
-        #La respuesta de la máquina es inmediata? Es casi inmediato
-        #Si pongo time.sleep, afecta a la aplicación? Parece que no
-        print("Enviando testsoft")
-        self.serial_port.write("TESTSOFT\n".encode("utf-8"))
-        time.sleep(0.5)
-        message = self.serial_port.readline().decode().strip()
-        if message == "LED encendido":
-           print("Enviando bns")
-           self.serial_port.write("bns\n".encode("utf-8"))
-           time.sleep(0.5)
-        elif message == "":
-           print("No hay nada")
-           time.sleep(0.5)
-        elif message == "LED apagado":
-            print("off")
-        """
-           if self.serial_port.readline().decode().strip() == "Título 1":
-                self.serial_port.write("5")
-                time.sleep(0.5)
-                if self.serial_port.readline().decode().strip() == "Título 2":
-                     self.serial_port.write("1")
-                     time.sleep(0.5)
-                     if self.serial_port.readline().decode().strip() == "Título 3":
-                          self.serial_port.write(data)
-                          time.sleep(0.5)
-                          if self.serial_port.readline().decode().strip() == "Respuesta esperada":
-                            self.trigger_event("evento para ese comando")
-        else:
-            self.trigger_event("evento para manejar datos no válidos")"""
             
     def home_routine(self,routine):
 
@@ -123,15 +92,15 @@ class SerialManager(ObservableModel):
         home_to_axis = routine['home_to_axis']
         
         for x in general_steps:
-            #self.serial_port.write(f"{x}\n".encode("utf-8"))
+            self.serial_port.write(f"{x}\n".encode("utf-8"))
             print(x)
-            time.sleep(0.5)
+            time.sleep(1)
             
         for x in home_steps:
-            #self.serial_port.write(f"{x}\n".encode("utf-8"))
+            self.serial_port.write(f"{x}\n".encode("utf-8"))
             print(x)
-            time.sleep(0.5)
+            time.sleep(1)
             
-        #self.serial_port.write(f"{home_to_axis}\n".encode("utf-8"))
+        self.serial_port.write(f"{home_to_axis}\n".encode("utf-8"))
         print(home_to_axis)
         time.sleep(0.5)
