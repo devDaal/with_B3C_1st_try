@@ -13,9 +13,6 @@ class ObservableModel:
             if cls._instance is None:
                 cls._instance = super(ObservableModel, cls).__new__(cls)
                 cls._instance._initialized = False
-                print("Creando una nueva instancia")
-            else:
-                print("Ya existe una instancia")
         return cls._instance
 
     def __init__(self):

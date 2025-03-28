@@ -6,7 +6,6 @@ from .with_B3C_home import With_B3C_Controller
 from .settings_controller import SettingsController
 from .homing_controller import Homing_Controller
 
-
 class Controller:
     
     def __init__(self, model: Model, view: View) -> None:
@@ -23,7 +22,9 @@ class Controller:
         self.model.serial_manager.add_event_listener("update_connection_status",self.update_connection_status)
         self.model.serial_manager.add_event_listener("unexpected_disconnection",self.unexpected_disconnection)
         
-        self.model.homing_routine.add_event_listener("axis_option",self.send_command_to_serial_manager)
+        self.model.homing_routine.add_event_listener("axis_option",self.send_axis_to_protocol_selector)
+        
+        self.model.protocol_selector.add_event_listener("send_routine",self.send_commands_to_serial_manager)
         
         
 
@@ -44,8 +45,13 @@ class Controller:
         """Inside the main Controller's scope"""
         self.settings_page_controller.unexpected_disconnection()
         
-    def send_command_to_serial_manager(self, parent):
-        self.model.serial_manager.data_manager(self.model.homing_routine.axis_option)
+    def send_axis_to_protocol_selector(self, parent):
+        self.model.protocol_selector.send_routine_to_serial_manager(self.settings_page_controller.protocol,
+                                                                    self.model.homing_routine.axis_option)
+        
+    def send_commands_to_serial_manager(self, parent):
+        self.model.serial_manager.home_routine(self.model.protocol_selector.routine)
+
     
         
 

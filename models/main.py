@@ -1,6 +1,7 @@
 from .hello_test import Hello_Test
 from .serial_manager import SerialManager
 from .homing_routine import Homing_Routine
+from .protocol_selector import Protocol_Selector
 
 class Model:
     
@@ -8,7 +9,4 @@ class Model:
         self.hello = Hello_Test()
         self.serial_manager = SerialManager()
         self.homing_routine = Homing_Routine()
-        
-        print(self.hello is self.serial_manager, "1")
-        print(self.hello is self.homing_routine, "2")
-        print(self.serial_manager is self.homing_routine, "3")
+        self.protocol_selector = Protocol_Selector()

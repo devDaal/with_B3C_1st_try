@@ -41,12 +41,12 @@ class Settingsview(Frame):
         lbl = Label(container, text='CONTROL SELECTION',font=("Robot",12,"normal"))
         lbl.grid(pady=5,padx=5)
         
-        self.selected_control = StringVar()
-        self.selected_control.set("0") #This is just here for the radios to start unselected
-        self.radio_DC = Radiobutton(container, text='DC Protocol', value='dc', variable=self.selected_control)
-        self.radio_LEFTZ = Radiobutton(container, text='Leitz Protocol', value='ltz', variable=self.selected_control)
-        self.radio_SHEFFIELD = Radiobutton(container, text='Sheffield Protocol', value='sh', variable=self.selected_control)
-        self.radio_REFLEX = Radiobutton(container, text='Reflex', value='rfx', variable=self.selected_control)
+        self.selected_protocol = StringVar()
+        self.selected_protocol.set("0") #This is just here for the radios to start unselected
+        self.radio_DC = Radiobutton(container, text='DC Protocol', value='dc', variable=self.selected_protocol)
+        self.radio_LEFTZ = Radiobutton(container, text='Leitz Protocol', value='ltz', variable=self.selected_protocol)
+        self.radio_SHEFFIELD = Radiobutton(container, text='Sheffield Protocol', value='sh', variable=self.selected_protocol)
+        self.radio_REFLEX = Radiobutton(container, text='Reflex', value='rfx', variable=self.selected_protocol)
         self.radio_DC.grid(sticky='w',padx=(10,0))
         self.radio_LEFTZ.grid(sticky='w',padx=(10,0))
         self.radio_SHEFFIELD.grid(sticky='w',padx=(10,0))

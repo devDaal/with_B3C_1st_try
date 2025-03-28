@@ -2,8 +2,6 @@ import serial
 import serial.tools.list_ports
 import threading
 import time
-import importlib
-from Commands.protocols import Protocols
 from .base import ObservableModel
 
 class SerialManager(ObservableModel):
@@ -118,22 +116,22 @@ class SerialManager(ObservableModel):
         else:
             self.trigger_event("evento para manejar datos no válidos")"""
             
-    def home_routine(self,axis,protocol):
+    def home_routine(self,routine):
 
-        module_name = Protocols[protocol]
-        protocol_module = importlib.import_module(module_name)
+        general_steps = routine['general_steps']
+        home_steps = routine['home_steps']
+        home_to_axis = routine['home_to_axis']
         
-        general_steps = protocol_module.general_steps
-        home_steps = protocol_module.home_steps
-        home_to_axis = protocol_module.axes[axis]
-
         for x in general_steps:
-            self.serial_port.write(f"{x}\n".encode("utf-8"))
+            #self.serial_port.write(f"{x}\n".encode("utf-8"))
+            print(x)
             time.sleep(0.5)
             
         for x in home_steps:
-            self.serial_port.write(f"{x}\n".encode("utf-8"))
+            #self.serial_port.write(f"{x}\n".encode("utf-8"))
+            print(x)
             time.sleep(0.5)
             
-        self.serial_port.write(f"{home_to_axis}\n".encode("utf-8"))
+        #self.serial_port.write(f"{home_to_axis}\n".encode("utf-8"))
+        print(home_to_axis)
         time.sleep(0.5)

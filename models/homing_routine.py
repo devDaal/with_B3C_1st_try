@@ -7,10 +7,9 @@ class Homing_Routine(ObservableModel):
         """self.counter += 1
         print("Homing", self.counter)"""
 
-        print(self._initialized,"homing")
         #variables
         
-    def send_index_to_serial_manager(self,axis):
+    def send_index_to_protocol_selector(self,axis):
         
         self.axis_options = ('x','y','z',)
         if axis in self.axis_options:

@@ -18,7 +18,7 @@ class Homing_Controller:
         if self.model.serial_manager.is_connected:   
             if '0' not in self.frame.selected.get():
                 if self.frame.show_askyesnocancel():
-                    self.model.homing_routine.send_index_to_serial_manager(self.frame.selected.get())
+                    self.model.homing_routine.send_index_to_protocol_selector(self.frame.selected.get())
                 else:
                     print("Ño quiero")
             else:

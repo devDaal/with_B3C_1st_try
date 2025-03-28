@@ -12,7 +12,7 @@ class SettingsController:
     def _bind(self):
         self.frame.exit_btn.config(command = self.start_page)
         self.frame.combo_port.config(postcommand = lambda: self.update_values())
-        self.frame.connect_btn.config(command = self.send_port_to_model)
+        self.frame.connect_btn.config(command = self.send_selections_to_serial_manager)
         
     def update_values(self):
         self.model.serial_manager.list_ports()
@@ -24,9 +24,13 @@ class SettingsController:
         else:
             self.frame.combo_port.set("")
             
-    def send_port_to_model(self):
-        if self.frame.selected_control.get() != '0':    
+    def send_selections_to_serial_manager(self):
+        if self.frame.selected_protocol.get() != '0':    
             self.model.serial_manager.toggle_connection(self.frame.combo_port.get())
+            self.protocol = self.frame.selected_protocol.get()
+            #Queda pendiente ver cómo recibir el eje, para después mandar eje y protocolo juntos
+            #Qué parte del código tiene acceso simultáneo a ambas cosas? 
+            #Crear una función que pida ambas, se alamacenan y luego enviarlas
         else:
             self.frame.show_selection_needed()
         
