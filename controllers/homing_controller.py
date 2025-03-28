@@ -14,7 +14,6 @@ class Homing_Controller:
         self.frame.start_btn.config(command = self.start_routine)      
         
     def start_routine(self):
-        #Agregar que se lea si actualmente existe conexión serial para poder continuar con el proceso
         if self.model.serial_manager.is_connected:   
             if '0' not in self.frame.selected.get():
                 if self.frame.show_askyesnocancel():

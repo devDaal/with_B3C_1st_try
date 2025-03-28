@@ -14,7 +14,7 @@ class Protocol_Selector(ObservableModel):
         protocol_module = importlib.import_module(module_name)
         general_steps = protocol_module.general_steps
         home_steps = protocol_module.home_steps
-        home_to_axis = axis
+        home_to_axis = protocol_module.axes[axis]
         
         self.routine['general_steps'] = general_steps
         self.routine['home_steps'] = home_steps
