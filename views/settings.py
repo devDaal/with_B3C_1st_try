@@ -46,7 +46,7 @@ class Settingsview(Frame):
         self.radio_DC = Radiobutton(container, text='DC Protocol', value='dc', variable=self.selected_protocol)
         self.radio_LEITZ = Radiobutton(container, text='Leitz Protocol', value='ltz', variable=self.selected_protocol)
         self.radio_SHEFFIELD = Radiobutton(container, text='Sheffield Protocol', value='sh', variable=self.selected_protocol)
-        self.radio_REFLEX = Radiobutton(container, text='Reflex', value='rfx', variable=self.selected_protocol)
+        self.radio_REFLEX = Radiobutton(container, text='Reflex Protocol', value='rfx', variable=self.selected_protocol)
         self.radio_DC.grid(sticky='w',padx=(10,0))
         self.radio_LEITZ.grid(sticky='w',padx=(10,0))
         self.radio_SHEFFIELD.grid(sticky='w',padx=(10,0))

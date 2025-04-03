@@ -23,7 +23,7 @@ class SerialManager(ObservableModel):
     def read_data(self):
         if self.serial_port and self.serial_port.is_open:
             try:
-                self.data = self.serial_port.readline().decode().strip()
+                self.data = self.serial_port.readall().decode().strip()
                 if self.data:
                     print(f"Datos recibidos: {self.data}")
                     #Aquí va trigger_event ??
@@ -92,15 +92,25 @@ class SerialManager(ObservableModel):
         home_to_axis = routine['home_to_axis']
         
         for x in general_steps:
-            self.serial_port.write(f"{x}\n".encode("utf-8"))
+            self.serial_port.write(f"{x}\r".encode("utf-8"))
             print(x)
-            time.sleep(1)
+            time.sleep(3)
             
         for x in home_steps:
-            self.serial_port.write(f"{x}\n".encode("utf-8"))
+            self.serial_port.write(f"{x}\r".encode("utf-8"))
             print(x)
-            time.sleep(1)
+            time.sleep(3)
             
-        self.serial_port.write(f"{home_to_axis}\n".encode("utf-8"))
+        self.serial_port.write(f"{home_to_axis}\r".encode("utf-8"))
         print(home_to_axis)
-        time.sleep(0.5)
+        time.sleep(3)
+        
+    def reset_connection(self):
+        if self.serial_port and self.serial_port.is_open:    
+            print("Enviando: ctrl + ECB")
+            self.serial_port.write("\x05\x03\x02".encode("utf-8"))
+            
+    def test_soft(self):
+        if self.serial_port and self.serial_port.is_open:
+            print("Enviando: testsoft")
+            self.serial_port.write("\x74\x65\x73\x74\x73\x6f\x66\x74\x0d".encode("utf-8"))

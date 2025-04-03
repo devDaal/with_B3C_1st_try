@@ -27,6 +27,9 @@ class Controller:
         self.model.protocol_selector.add_event_listener("send_routine",self.send_commands_to_serial_manager)
         
         
+        
+        
+        
 
 
    #def event_to_update_view_using_variables_etc_from_model(self, parent):
@@ -50,10 +53,7 @@ class Controller:
                                                                     self.model.homing_routine.axis_option)
         
     def send_commands_to_serial_manager(self, parent):
-        self.model.serial_manager.home_routine(self.model.protocol_selector.routine)
-
-    
-        
+        self.model.serial_manager.home_routine(self.model.protocol_selector.routine)  
 
     def start(self) -> None:
         self.view.start_mainloop()

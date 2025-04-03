@@ -10,6 +10,8 @@ class Homingview(Frame):
         self.place_exit_btn()
         self.place_information_widget()
         self.place_start_btn()
+        self.place_reset_btn()
+        self.place_test_btn()
         
     def place_title(self):
         title = Label(self, text="HOMING",font=("Robot",12,"normal"))
@@ -55,6 +57,17 @@ class Homingview(Frame):
         
         self.z_lbl = Label(self, text='Home in Z')
         self.z_lbl.grid(column=2,row=3)
+        
+    def place_reset_btn(self):
+        self.reset_btn = Button(self, text='RESET',
+                               font=("Robot",12,"bold"), bg='green', fg='white')
+        self.reset_btn.grid(column=3,row=1,padx=(30,0))
+        
+    def place_test_btn(self):
+        self.test_btn = Button(self, text='TEST',
+                               font=("Robot",12,"bold"), bg='green', fg='white')
+        self.test_btn.grid(column=3,row=2,padx=(30,0))
+    
         
     def show_askyesnocancel(self):
         return messagebox.askyesnocancel('Ready to start?',
