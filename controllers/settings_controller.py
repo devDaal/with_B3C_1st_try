@@ -1,3 +1,6 @@
+import subprocess
+import os
+
 from views.main import View
 from models.main import Model
 
@@ -17,6 +20,7 @@ class SettingsController:
         self.frame.radio_LEITZ.config(command = self.disconnection_needed)
         self.frame.radio_SHEFFIELD.config(command = self.disconnection_needed)
         self.frame.radio_REFLEX.config(command = self.disconnection_needed)
+        self.frame.ph10_btn.config(command = self.open_ph10_module)
         
     def update_values(self):
         self.model.serial_manager.list_ports()
@@ -56,7 +60,13 @@ class SettingsController:
             
     def disconnection_needed(self):
         if self.model.serial_manager.is_connected:
-            self.frame.show_disconnection_needed()
-
+            if self.protocol != self.frame.selected_protocol.get():    
+                self.frame.selected_protocol.set(self.protocol)
+                self.frame.show_disconnection_needed()
+                
+    def open_ph10_module(self):
+        script_path = r"C:\Users\ITS_Servicio\Desktop\Desarrollo Software Diego\Proyecto Cabezalv1\Pruebas.v2\Interfaz\Version Diego.py"
+        subprocess.Popen(["python", script_path], shell=True)
+    
     def start_page(self):
         self.view.switch("startpage")

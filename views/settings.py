@@ -9,12 +9,14 @@ class Settingsview(Frame):
         self.place_control_selection_widget()
         self.place_port_selection_widget()
         self.place_title()
+        self.place_PH10_button()
         self.place_exit_btn()
+        
         
     def place_exit_btn(self):
         self.exit_btn = Button(self, text="EXIT", 
                                font=("Robot",12,"bold"), bg='red', fg='white')
-        self.exit_btn.grid(row=2, sticky='sw', padx=5, pady=(5,0)) 
+        self.exit_btn.grid(row=3, sticky='sw', padx=5, pady=(5,0)) 
         
     def place_title(self):
         title = Label(self, text='SETTINGS', font = ("Robot",12,"bold"))
@@ -51,6 +53,14 @@ class Settingsview(Frame):
         self.radio_LEITZ.grid(sticky='w',padx=(10,0))
         self.radio_SHEFFIELD.grid(sticky='w',padx=(10,0))
         self.radio_REFLEX.grid(sticky='w',padx=(10,0))
+        
+    def place_PH10_button(self):
+        container = Frame(self)
+        container.grid(column=0, row=2,padx=(5,0) ,sticky='w')
+        
+        self.ph10_btn = Button(container, text="PH10 Tester",
+                                  font=("Robot",12,"bold"),fg='white',bg='green')    
+        self.ph10_btn.grid()
         
     def show_selection_needed(self):
         messagebox.showwarning('Selection required',

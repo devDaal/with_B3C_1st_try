@@ -5,6 +5,7 @@ from .startpage import StartPageController
 from .with_B3C_home import With_B3C_Controller
 from .settings_controller import SettingsController
 from .homing_controller import Homing_Controller
+from .sensors_controller import Sensors_Controller
 
 class Controller:
     
@@ -15,6 +16,7 @@ class Controller:
         self.with_B3C_page_controller = With_B3C_Controller(model, view)
         self.settings_page_controller = SettingsController(model, view)
         self.homing_page_controller = Homing_Controller(model, view)
+        self.sensors_page_controller = Sensors_Controller(model, view)
         
         self.model.hello.add_event_listener("Hello", self.hello_world)
         

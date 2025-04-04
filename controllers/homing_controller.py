@@ -34,4 +34,7 @@ class Homing_Controller:
         self.model.serial_manager.test_soft()
         
     def home_page(self):
-        self.view.switch("left_page")
+        if not self.model.serial_manager.is_running:
+            self.view.switch("left_page")
+        #Se pueden hacer más acciones como deshabilitar el botón, pero creo que por ahora está bien
+        #Se podría también mandar un mensaje de que no se puede salir porque la prueba está corriendo

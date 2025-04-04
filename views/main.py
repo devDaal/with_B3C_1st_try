@@ -3,6 +3,7 @@ from .startpage import StartPageview
 from .with_B3C_home import with_B3C_HomePage
 from .settings import Settingsview
 from .homing import Homingview
+from .sensors_view import Sensorsview
 from .root import Root
 
 
@@ -15,6 +16,7 @@ class View:
         self.root = Root()
         self.frames: Frames = {}
         
+        self._add_frame(Sensorsview, 'sensors_page')
         self._add_frame(Homingview, 'homing_page')
         self._add_frame(Settingsview, 'settings_page')
         self._add_frame(with_B3C_HomePage, 'left_page')

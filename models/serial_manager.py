@@ -87,6 +87,8 @@ class SerialManager(ObservableModel):
             
     def home_routine(self,routine):
 
+        self.is_running = True
+        
         general_steps = routine['general_steps']
         home_steps = routine['home_steps']
         home_to_axis = routine['home_to_axis']
@@ -104,6 +106,8 @@ class SerialManager(ObservableModel):
         self.serial_port.write(f"{home_to_axis}\r".encode("utf-8"))
         print(home_to_axis)
         time.sleep(3)
+        
+        self.is_running = False
         
     def reset_connection(self):
         if self.serial_port and self.serial_port.is_open:    
