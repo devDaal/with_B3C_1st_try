@@ -27,6 +27,7 @@ class Controller:
         self.model.homing_routine.add_event_listener("axis_option",self.send_axis_to_protocol_selector)
         
         self.model.protocol_selector.add_event_listener("send_routine",self.send_commands_to_serial_manager)
+        #self.model.protocol_selector.add_event_listener("send_port_config",self.send_port_config_to_serial_manager)
         
         
         
@@ -55,7 +56,9 @@ class Controller:
                                                                     self.model.homing_routine.axis_option)
         
     def send_commands_to_serial_manager(self, parent):
-        self.model.serial_manager.home_routine(self.model.protocol_selector.routine)  
-
+        self.model.serial_manager.home_routine(self.model.protocol_selector.routine) 
+        
+    """def send_port_config_to_serial_manager(self, parent):
+        self.model.serial_manager."""
     def start(self) -> None:
         self.view.start_mainloop()

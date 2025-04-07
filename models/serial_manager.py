@@ -40,7 +40,7 @@ class SerialManager(ObservableModel):
                 self.is_decode_error = True
         return None
     
-    def connect(self, port_to_open, baudrate = 9600):
+    def connect(self, port_to_open, baudrate, timeout):
         try:
             self.serial_port = serial.Serial(port_to_open, baudrate, timeout=1)
             self.is_connected = True
@@ -58,14 +58,18 @@ class SerialManager(ObservableModel):
             self.port_name = None
             self.secure_disconnection = True
     
-    def toggle_connection(self, port_to_open):
+    def toggle_connection(self, port_to_open, port_config):
+        baudrate = port_config['baudrate']
+        timeout = port_config['timeout']
         if self.is_connected:
             self.disconnect()
             self.trigger_event("update_connection_status")
         else:
             selected_port = port_to_open
             if selected_port:
-                success = self.connect(selected_port)
+                #Aquí se debe pedir la configuración del puerto, guardarse como variables y pasarlas
+                #a connect
+                success = self.connect(selected_port,baudrate,timeout)
                 if success:
                     self.trigger_event("update_connection_status")
                     self.start_monitoring()

@@ -22,3 +22,11 @@ class Protocol_Selector(ObservableModel):
         
         print(self.routine)
         self.trigger_event("send_routine")
+        
+    def send_port_config(self, protocol):
+        self.port_config = {}
+        protocol_module = importlib.import_module(Protocols[protocol])
+        self.port_config['baudrate'] = protocol_module.baudrate
+        self.port_config['timeout'] = protocol_module.timeout
+        return self.port_config
+        #self.trigger_event("send_port_config")

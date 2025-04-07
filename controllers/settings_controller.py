@@ -1,5 +1,4 @@
 import subprocess
-import os
 
 from views.main import View
 from models.main import Model
@@ -27,18 +26,18 @@ class SettingsController:
     
     def update_ports_view(self):
         self.frame.combo_port["values"] = self.model.serial_manager.port_list
-        if self.model.serial_manager.ports:
+        print(self.frame.combo_port["values"])
+        if self.model.serial_manager.port_list:
             self.frame.combo_port.current(0)
         else:
             self.frame.combo_port.set("")
+        self.frame.combo_port.update()
             
     def send_selections_to_serial_manager(self):
-        if self.frame.selected_protocol.get() != '0':    
-            self.model.serial_manager.toggle_connection(self.frame.combo_port.get())
+        if self.frame.selected_protocol.get() != '0': 
             self.protocol = self.frame.selected_protocol.get()
-            #Queda pendiente ver cómo recibir el eje, para después mandar eje y protocolo juntos
-            #Qué parte del código tiene acceso simultáneo a ambas cosas? 
-            #Crear una función que pida ambas, se alamacenan y luego enviarlas
+            self.model.serial_manager.toggle_connection(self.frame.combo_port.get(),
+                                        self.model.protocol_selector.send_port_config(self.protocol))
         else:
             self.frame.show_selection_needed()
         
