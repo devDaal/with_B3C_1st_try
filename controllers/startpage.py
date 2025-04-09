@@ -22,4 +22,3 @@ class StartPageController:
         
     def settings_page(self):
         self.view.switch("settings_page")
-        self.model.serial_manager.list_ports()

@@ -32,9 +32,13 @@ class Settingsview(Frame):
         self.combo_port = Combobox(container, state='readonly')
         self.combo_port.grid()       
         
+        self.update_ports_btn = Button(container, text="UPDATE",
+                                  font=("Robot",8,"bold"),fg='white',bg='blue')    
+        self.update_ports_btn.grid(row=1,column=1, padx=5)
+        
         self.connect_btn = Button(container, text="CONNECT", width=11,
                                   font=("Robot",12,"bold"),fg='white',bg='green')    
-        self.connect_btn.grid(row=1,column=1, padx=5)
+        self.connect_btn.grid(row=2,column=1, padx=5, pady=(5,0))
         
     def place_control_selection_widget(self):
         container = Frame(self)

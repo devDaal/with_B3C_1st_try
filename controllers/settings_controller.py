@@ -13,7 +13,7 @@ class SettingsController:
         
     def _bind(self):
         self.frame.exit_btn.config(command = self.start_page)
-        self.frame.combo_port.config(postcommand = lambda: self.update_values())
+        self.frame.update_ports_btn.config(command = lambda: self.update_values())
         self.frame.connect_btn.config(command = self.send_selections_to_serial_manager)
         self.frame.radio_DC.config(command = self.disconnection_needed)
         self.frame.radio_LEITZ.config(command = self.disconnection_needed)
@@ -27,6 +27,7 @@ class SettingsController:
     def update_ports_view(self):
         self.frame.combo_port["values"] = self.model.serial_manager.port_list
         print(self.frame.combo_port["values"])
+        #buscar la forma de que no se quede el valor anterior en el combo box
         if self.model.serial_manager.port_list:
             self.frame.combo_port.current(0)
         else:
