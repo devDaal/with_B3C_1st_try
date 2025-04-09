@@ -14,6 +14,7 @@ class SerialManager(ObservableModel):
         self.ports = None
         self.secure_disconnection = None
         self.is_decode_error = None
+        self.is_running = False
 
     def list_ports(self):
         self.ports = serial.tools.list_ports.comports()

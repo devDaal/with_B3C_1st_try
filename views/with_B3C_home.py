@@ -1,4 +1,5 @@
 from tkinter import Frame, PhotoImage, Label, Button
+from tkinter import messagebox
 
 class with_B3C_HomePage(Frame):
     
@@ -47,4 +48,7 @@ class with_B3C_HomePage(Frame):
         self.exit_btn = Button(self, text="EXIT")
         self.exit_btn.grid(row=3, column=1)
         
+    def show_no_serial_connection(self):
+        messagebox.showwarning("No serial connection", 
+                               "Please connect to the serial port before proceeding.")
         

@@ -19,10 +19,16 @@ class With_B3C_Controller:
         self.view.switch("startpage")
         
     def homing_page(self):
-        self.view.switch("homing_page")
+        if self.model.serial_manager.is_connected:
+            self.view.switch("homing_page")
+        else:
+            self.frame.show_no_serial_connection()
         
     def sensors_page(self):
-        self.view.switch("sensors_page")
+        if self.model.serial_manager.is_connected:
+            self.view.switch("sensors_page")
+        else:
+            self.frame.show_no_serial_connection()
     
     def say_hello(self):
         self.model.hello.say_hello()

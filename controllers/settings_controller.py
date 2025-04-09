@@ -1,5 +1,6 @@
 import subprocess
-
+import psutil
+import time
 from views.main import View
 from models.main import Model
 
@@ -66,7 +67,15 @@ class SettingsController:
                 
     def open_ph10_module(self):
         script_path = r"C:\Users\ITS_Servicio\Desktop\Desarrollo Software Diego\Proyecto Cabezalv1\Pruebas.v2\Interfaz\Version Diego.py"
+        
+        for process in psutil.process_iter(['pid', 'name', 'cmdline']):
+            try:
+                if process.info['cmdline'] and script_path in process.info['cmdline']:
+                    return
+            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+                continue
         subprocess.Popen(["python", script_path], shell=True)
+        time.sleep(0.05)
     
     def start_page(self):
         self.view.switch("startpage")
