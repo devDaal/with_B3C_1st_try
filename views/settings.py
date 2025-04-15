@@ -1,4 +1,4 @@
-from tkinter import Button, Frame, Label, messagebox, StringVar, Radiobutton
+from tkinter import Button, Frame, Label, messagebox, StringVar, Radiobutton, Entry
 from tkinter.ttk import Combobox
 
 class Settingsview(Frame):
@@ -11,12 +11,13 @@ class Settingsview(Frame):
         self.place_title()
         self.place_PH10_button()
         self.place_exit_btn()
+        self.place_tcp_selection_widget()
         
         
     def place_exit_btn(self):
         self.exit_btn = Button(self, text="EXIT", 
                                font=("Robot",12,"bold"), bg='red', fg='white')
-        self.exit_btn.grid(row=3, sticky='sw', padx=5, pady=(5,0)) 
+        self.exit_btn.grid(row=3, sticky='sw', padx=5) 
         
     def place_title(self):
         title = Label(self, text='SETTINGS', font = ("Robot",12,"bold"))
@@ -39,6 +40,23 @@ class Settingsview(Frame):
         self.connect_btn = Button(container, text="CONNECT", width=11,
                                   font=("Robot",12,"bold"),fg='white',bg='green')    
         self.connect_btn.grid(row=2,column=1, padx=5, pady=(5,0))
+        
+    def place_tcp_selection_widget(self):
+        container = Frame(self)
+        container.grid(column=1, row=2)
+        
+        lbl = Label(container, text='TCP / IP',font=("Robot",12,"normal"))
+        lbl.grid(pady=5,padx=5)
+        
+        self.server_ip_adrres = Entry(container)
+        self.server_ip_adrres.grid()       
+        
+        self.server_port_number = Entry(container)
+        self.server_port_number.grid(pady=(5,0))
+                
+        self.tcp_connect_btn = Button(container, text="CONNECT", width=11,
+                                  font=("Robot",12,"bold"),fg='white',bg='green')    
+        self.tcp_connect_btn.grid(row=1,column=1, padx=5, pady=(5,0))
         
     def place_control_selection_widget(self):
         container = Frame(self)
@@ -93,3 +111,12 @@ class Settingsview(Frame):
     def show_unexpected_disconection_error(self):
         messagebox.showerror('Connection Error',
                              'There was an unexpected connection error.')
+        
+    def show_invalid_ip_input(self):
+        messagebox.showwarning('Invalid IP Address',
+                               "Please enter a valid IP address.")
+        
+    def show_invalid_port_input(self):
+        messagebox.showwarning('Invalid Port Number',
+                               "Please enter a valid port number.")
+       

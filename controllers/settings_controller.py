@@ -21,6 +21,7 @@ class SettingsController:
         self.frame.radio_SHEFFIELD.config(command = self.disconnection_needed)
         self.frame.radio_REFLEX.config(command = self.disconnection_needed)
         self.frame.ph10_btn.config(command = self.open_ph10_module)
+        self.frame.tcp_connect_btn.config(command = self.send_config_to_tcp_manager)
         
     def update_values(self):
         self.model.serial_manager.list_ports()
@@ -64,6 +65,23 @@ class SettingsController:
             if self.protocol != self.frame.selected_protocol.get():    
                 self.frame.selected_protocol.set(self.protocol)
                 self.frame.show_disconnection_needed()
+
+    def send_config_to_tcp_manager(self):
+        is_validated_ip = self.model.tcp_manager.validate_ip_entry(self.frame.server_ip_adrres.get())
+        is_validated_port = self.model.tcp_manager.validate_server_port_number(self.frame.server_port_number.get())
+        if is_validated_ip:
+            if is_validated_port:
+                print("Conectanding...")
+                #Pedir al modelo que se conecte:
+                #Esto requiere de:
+                #   - IP address (normalizada)
+                #   - Port number
+                #   - Protocolo a utilizar
+                #   - Instrucciones necesarias para conectar (......., CMMTYP..) dependiendo del protocolo
+            else:
+                self.frame.show_invalid_port_input()
+        else:
+            self.frame.show_invalid_ip_input()
                 
     def open_ph10_module(self):
         script_path = r"C:\Users\ITS_Servicio\Desktop\Desarrollo Software Diego\Proyecto Cabezalv1\Pruebas.v2\Interfaz\Version Diego.py"
