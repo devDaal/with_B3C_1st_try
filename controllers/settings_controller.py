@@ -67,17 +67,20 @@ class SettingsController:
                 self.frame.show_disconnection_needed()
 
     def send_config_to_tcp_manager(self):
-        is_validated_ip = self.model.tcp_manager.validate_ip_entry(self.frame.server_ip_adrres.get())
-        is_validated_port = self.model.tcp_manager.validate_server_port_number(self.frame.server_port_number.get())
+        if self.frame.selected_protocol.get() != '0': 
+            self.protocol = self.frame.selected_protocol.get()
+        else:
+            self.frame.show_selection_needed()
+        self.ip_address = self.frame.server_ip_adrres.get()
+        self.port_number = self.frame.server_port_number.get()
+        steps = self.model.protocol_selector.send_tcp_connection_config(self.protocol)
+        is_validated_ip = self.model.tcp_manager.validate_ip_entry(self.ip_address)
+        is_validated_port = self.model.tcp_manager.validate_server_port_number(self.port_number)
         if is_validated_ip:
             if is_validated_port:
                 print("Conectanding...")
-                #Pedir al modelo que se conecte:
-                #Esto requiere de:
-                #   - IP address (normalizada)
-                #   - Port number
-                #   - Protocolo a utilizar
-                #   - Instrucciones necesarias para conectar (......., CMMTYP..) dependiendo del protocolo
+                self.ip_address = self.model.tcp_manager.normalize_ip_entry(self.ip_address)
+                self.model.tcp_manager.connect(self.ip_address, self.port_number, steps['connection_steps'])
             else:
                 self.frame.show_invalid_port_input()
         else:
